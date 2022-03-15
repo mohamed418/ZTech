@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_validator/form_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:z_tech/bloc/cubit.dart';
 import 'package:z_tech/bloc/states.dart';
@@ -110,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: NameContainer(
+                          child: container(
                             validator: validator2,
                             action: TextInputAction.next,
                             type: TextInputType.name,
@@ -119,7 +118,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 20),
                         Expanded(
-                          child: NameContainer(
+                          child: container(
                             validator: validator3,
                             action: TextInputAction.next,
                             type: TextInputType.name,
@@ -129,130 +128,36 @@ class SignUpScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      decoration: decoration,
-                      child: TextFormField(
-                        validator: ValidationBuilder().email().build(),
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          labelText: "E-mail",
-                          labelStyle: GoogleFonts.handlee(
-                              textStyle: const TextStyle(fontSize: 20)),
-                          suffixIcon: const Icon(
-                            Icons.email_rounded,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
+                    container(
+                      validator: validator1,
+                      action: TextInputAction.next,
+                      type: TextInputType.emailAddress,
+                      text: "E-mail",
+                      suffix: Icons.email_rounded,
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      decoration: decoration,
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your password';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: ZTechCubit.get(context).isVisible1,
-                        decoration: InputDecoration(
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          labelText: 'Password',
-                          labelStyle: GoogleFonts.handlee(
-                              textStyle: const TextStyle(fontSize: 20)),
-                          suffixIcon: IconButton(
-                            icon: Icon(ZTechCubit.get(context).icon1),
-                            onPressed: () {
-                              ZTechCubit.get(context).visible1();
-                            },
-                          ),
-                        ),
-                      ),
+                    container(
+                      validator: validator4,
+                      action: TextInputAction.next,
+                      type: TextInputType.visiblePassword,
+                      text: 'Password',
+                      secure: ZTechCubit.get(context).isVisible1,
+                      suffix: ZTechCubit.get(context).icon1,
+                      suffixPressed: () {
+                        ZTechCubit.get(context).visible1();
+                      },
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      decoration: decoration,
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please confirm your password';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputAction: TextInputAction.go,
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: ZTechCubit.get(context).isVisible2,
-                        decoration: InputDecoration(
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          labelText: 'Confirm Password',
-                          labelStyle: GoogleFonts.handlee(
-                              textStyle: const TextStyle(fontSize: 20)),
-                          suffixIcon: IconButton(
-                            icon: Icon(ZTechCubit.get(context).icon2),
-                            onPressed: () {
-                              ZTechCubit.get(context).visible2();
-                            },
-                          ),
-                        ),
-                      ),
+                    container(
+                      validator: validator5,
+                      action: TextInputAction.go,
+                      type: TextInputType.visiblePassword,
+                      text: 'Confirm Password',
+                      secure: ZTechCubit.get(context).isVisible2,
+                      suffix: ZTechCubit.get(context).icon2,
+                      suffixPressed: () {
+                        ZTechCubit.get(context).visible2();
+                      },
                     ),
                     const SizedBox(height: 10),
                     Align(

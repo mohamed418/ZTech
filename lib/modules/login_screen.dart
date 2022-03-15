@@ -6,7 +6,6 @@ import 'package:z_tech/bloc/cubit.dart';
 import 'package:z_tech/bloc/states.dart';
 import 'package:z_tech/models/component.dart';
 import 'package:z_tech/modules/signup_screen.dart';
-import 'package:form_validator/form_validator.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -92,96 +91,25 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Container(
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 20,
-                            offset: Offset.fromDirection(20, 20)
-                        )
-                      ]),
-                      child: TextFormField(
-                        validator: ValidationBuilder().email().build(),
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hoverColor: Colors.black38,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.email_rounded,
-                            color: Colors.grey,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          labelText: "E-mail",
-                          labelStyle: GoogleFonts.handlee(
-                              textStyle: const TextStyle(fontSize: 20)),
-                        ),
-                      ),
+                    container(
+                      validator: validator1,
+                      action: TextInputAction.next,
+                      type: TextInputType.emailAddress,
+                      text: "E-mail",
+                      prefix: Icons.email_rounded,
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      decoration: decoration,
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your password';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputAction: TextInputAction.go,
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: ZTechCubit.get(context).isVisible,
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: Colors.grey,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          labelText: 'Password',
-                          labelStyle: GoogleFonts.handlee(
-                              textStyle: const TextStyle(fontSize: 20)),
-                          suffixIcon: IconButton(
-                            icon: Icon(ZTechCubit.get(context).icon),
-                            onPressed: () {
-                              ZTechCubit.get(context).visible();
-                            },
-                          ),
-                        ),
-                      ),
+                    container(
+                      validator: validator4,
+                      action: TextInputAction.go,
+                      type: TextInputType.visiblePassword,
+                      text: 'Password',
+                      secure: ZTechCubit.get(context).isVisible,
+                      prefix: Icons.lock,
+                      suffix: ZTechCubit.get(context).icon,
+                      suffixPressed: () {
+                        ZTechCubit.get(context).visible();
+                      },
                     ),
                     const SizedBox(height: 10),
                     Align(
@@ -211,13 +139,12 @@ class LoginScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               gradient: gradient,
                               borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 10,
-                                      offset: Offset.fromDirection(20, 20)
-                                  )
-                                ],
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 10,
+                                    offset: Offset.fromDirection(20, 20))
+                              ],
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

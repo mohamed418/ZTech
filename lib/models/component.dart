@@ -13,15 +13,6 @@ LinearGradient gradient = const LinearGradient(
   ],
 );
 
-
-dynamic fun(value){
-  if (value!.isEmpty) {
-    return 'Please enter your first name';
-  } else {
-    return null;
-  }
-}
-
 final validator1 = ValidationBuilder().email().maxLength(50).build();
 final validator2 = (value) {
   if (value!.isEmpty) {
@@ -54,49 +45,64 @@ final validator5 = (value) {
 
 BoxDecoration decoration = BoxDecoration(boxShadow: [
   BoxShadow(
-      color: Colors.grey,
-      blurRadius: 20,
-      offset: Offset.fromDirection(20, 20)
-  )
+      color: Colors.grey, blurRadius: 20, offset: Offset.fromDirection(20, 20))
 ]);
 
-Container NameContainer({required validator, required action, required type, required text,}) => Container(
-  decoration: BoxDecoration(boxShadow: [
-    BoxShadow(
-        color: Colors.grey,
-        blurRadius: 20,
-        offset: Offset.fromDirection(20, 20)
-    )
-  ]),
-  child: TextFormField(
-    validator: validator,
-    textInputAction: action,
-    keyboardType: type,
-    decoration: InputDecoration(
-      hoverColor: Colors.black38,
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.grey),
-        borderRadius: BorderRadius.circular(40),
+Container container({
+  required validator,
+  required action,
+  required TextInputType? type,
+  required String text,
+  IconData? prefix,
+  IconData? suffix,
+  bool secure = false,
+  suffixPressed,
+  Function? onSubmit,
+}) =>
+    Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Colors.grey,
+            blurRadius: 20,
+            offset: Offset.fromDirection(20, 20))
+      ]),
+      child: TextFormField(
+        validator: validator,
+        textInputAction: action,
+        keyboardType: type,
+        obscureText: secure,
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          prefixIcon: Icon(
+            prefix,
+            color: Colors.grey,
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          labelText: text,
+          labelStyle:
+              GoogleFonts.handlee(textStyle: const TextStyle(fontSize: 20)),
+          suffixIcon: IconButton(
+            icon: Icon(suffix),
+            onPressed: () {
+              suffixPressed();
+            },
+          ),
+        ),
       ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(50),
-        borderSide: const BorderSide(color: Colors.grey),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(50),
-        borderSide: const BorderSide(color: Colors.grey),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.red),
-        borderRadius: BorderRadius.circular(40),
-      ),
-      filled: true,
-      fillColor: Colors.white,
-      labelText: text,
-      labelStyle: GoogleFonts.handlee(
-          textStyle: const TextStyle(fontSize: 20)),
-    ),
-  ),
-);
-
-
+    );
